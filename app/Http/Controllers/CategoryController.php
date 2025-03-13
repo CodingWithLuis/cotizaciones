@@ -23,7 +23,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -31,7 +31,9 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        Category::create($request->validated());
+
+        return to_route('categories.index');
     }
 
     /**
@@ -45,9 +47,11 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+
     public function edit(Category $category)
     {
-        //
+        //route model binding
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -55,7 +59,9 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->validated());
+
+        return to_route('categories.index');
     }
 
     /**
@@ -63,6 +69,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return back();
     }
 }
